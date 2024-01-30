@@ -10,11 +10,16 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//13:10분 ~ 15분 설명 놓침
+
 // UserRepository의 단위 테스트를 위한 테스트들
-@DataJpaTest // 테스트를 위해 UserRepository를 만들어줘야 하는데 JPA와 연관된 애들만 Bean으로 작성해주는 어노테이션
-public class UserRepositoryTests {
-  @Autowired // Spring Boot가 관리하는 Bean이라고 명시해주는 어노테이션
+// : 이미 만들어진 기능이 의도한데로 잘 동작하는지 위한 테스트 코드들을 작성하기 위한 곳
+
+// @DataJpaTest
+// : 테스트를 위해 UserRepository를 만들어줘야 하는데
+// JPA와 연관된 애들만 Bean으로 만들어주는 어노테이션
+@DataJpaTest
+public class UserRepositoryTests { // UserRepositoryTests: 어떤 대상을 테스트할지에 대한 것을 이름으로 주는게 일반적
+  @Autowired // 필드 기반 DI, Spring Boot가 관리하는 Bean이라고 명시해주는 어노테이션
   private UserRepository userRepository;
 
   // 사용자를 추가하는 테스트
@@ -39,6 +44,9 @@ public class UserRepositoryTests {
     assertEquals(username, result.getUsername()); // assertEquals가 실행되었을 때, 이 두 매개변수가 같지 않으면 이상하다.
     // userRepository.save()의 결과의 id가 null이 아닌지
     assertNotNull(result.getId());
+
+    // +) assert문
+    // : 테스트를 할 때, 내가 기대하고 있는 결과와 일치하는지 확인하는 코드를 "assert문"이라고 한다.
   }
 
   // 사용자를 추가하는데 실패하는 테스트
@@ -47,7 +55,7 @@ public class UserRepositoryTests {
   // 같은 username을 사용해서 user을 생성할 때는 실패해야 한다.
   @Test
   @DisplayName("새로운 User 추가 실패")
-  public void TestCreateUserFail() {
+  public void testCreateUserFail() {
     // given - 어떤 특정 username을 가진 user가 이미 저장된 상황에서
     String username = "minkyu";
     User userGiven = new User(username, null, null, null);
@@ -89,3 +97,5 @@ public class UserRepositoryTests {
 
   // (항상 userRepository가 잘 작동한다고 가정하고 작성하자)
 }
+
+// +) 테스트 코드가 에러가 나면 테스트 코드 수정이 아닌 소스코드를 수정하러 가야한다.
