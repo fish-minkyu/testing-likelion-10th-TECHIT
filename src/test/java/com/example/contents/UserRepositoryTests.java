@@ -17,7 +17,6 @@ public class UserRepositoryTests {
   @Autowired // Spring Boot가 관리하는 Bean이라고 명시해주는 어노테이션
   private UserRepository userRepository;
 
-
   // 사용자를 추가하는 테스트
   @Test
   @DisplayName("새로운 User 추가")
